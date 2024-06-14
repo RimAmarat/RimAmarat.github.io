@@ -39,8 +39,23 @@
 
         .button {
             margin-top: 20px;
+            float: right;
         }
     </style>
+
+
+    <div class="language-picker js-language-picker" data-trigger-class="li4-btn li4-btn--subtle js-tab-focus">
+        <form action="" class="language-picker__form">
+            <label for="language-picker-select">Select your language</label>
+
+            <select name="language-picker-select" id="language-picker-select">
+                <option lang="en" value="english" selected>English</option>
+                <option lang="fr" value="francais">Français</option>
+            </select>
+        </form>
+    </div>
+
+
 </head>
 
 <body>
@@ -114,12 +129,11 @@
             <li>Arabic, French, English, Spanish, Mandarin</li>
         </ul>
 
-        <button class="button" onclick="switchLanguage()">Switch to French</button>
     </div>
 
     <script>
-        function switchLanguage() {
-            const isEnglish = document.getElementById('name').innerText === 'Rim Amarat';
+        function switchLanguage(isEnglish) {
+            //const isEnglish = document.getElementById('name').innerText === 'Rim Amarat';
 
             if (isEnglish) {
                 document.getElementById('name').innerText = 'Rim Amarat';
@@ -170,7 +184,6 @@
                 `;
                 document.getElementById('languages-title').innerText = 'Langues';
                 document.getElementById('languages').innerHTML = `<li>Arabe, Français, Anglais, Espagnol, Mandarin</li>`;
-                document.querySelector('.button').innerText = 'Switch to English';
             } else {
                 document.getElementById('name').innerText = 'Rim Amarat';
                 document.getElementById('contact').innerHTML = '(+33) 07 77 75 05 01 ⋄ Avignon, France<br><a href="mailto:amaratrim@gmail.com">amaratrim@gmail.com</a><br><a href="https://www.linkedin.com/in/rimamarat" target="_blank">LinkedIn</a> ⋄ <a href="https://github.com/RimAmarat" target="_blank">GitHub</a>';
@@ -227,6 +240,8 @@
                 document.querySelector('.button').innerText = 'Switch to French';
             }
         }
+        switchLanguage(document.querySelector('language-picker-select').value() == 'english')
+
     </script>
 </body>
 
