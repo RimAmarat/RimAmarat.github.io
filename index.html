@@ -37,29 +37,53 @@
             padding: 5px 0;
         }
 
-        .button {
-            margin-top: 20px;
-            float: right;
+        .language-picker__dropdown {
+            position: absolute;
+            left: 200;
+            top: 100%;
+            width: 200px;
+            background-color: hsl(var(--li4-color-bg-light-hsl));
+            box-shadow: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075), 0 0.9px 1.5px rgba(0, 0, 0, 0.03), 0 3.1px 5.5px rgba(0, 0, 0, 0.08), 0 14px 25px rgba(0, 0, 0, 0.12);
+            padding: var(--li4-space-3xs) 0;
+            border-radius: 0.25em;
+            z-index: 5;
+            margin-top: var(--picker-vertical-gap);
+            margin-bottom: var(--picker-vertical-gap);
+            --space-unit: 1rem;
+            --text-unit: 1rem;
+            font-size: var(--text-unit);
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 0.2s, opacity 0.2s;
+        }
+
+
+        .language-picker__flag--english::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23002781' d='M46,6H2C0.896,6,0,6.896,0,8v32c0,1.104,0.896,2,2,2h44c1.104,0,2-0.896,2-2V8C48,6.896,47.104,6,46,6z'/%3E%3Cpath fill='%23E6E6E6' d='M48,8c0-1.104-0.896-2-2-2h-5.161L28,15.876V6h-8v9.876L7.161,6H2C0.896,6,0,6.896,0,8v2.586L12.239,20H0v8 h12.239L0,37.415V40c0,1.104,0.896,2,2,2h5.161L20,32.124V42h8v-9.876L40.839,42H46c1.104,0,2-0.896,2-2v-2.585L35.761,28H48v-8 H35.761L48,10.586V8z'/%3E%3Cpolygon fill='%23D10D24' points='48,22 26,22 26,6 22,6 22,22 0,22 0,26 22,26 22,42 26,42 26,26 48,26 '/%3E%3Cpath fill='%23D10D24' d='M47.001,6.307L29.2,20h3.28L48,8.062V8C48,7.268,47.587,6.656,47.001,6.307z'/%3E%3Cpath fill='%23D10D24' d='M32.48,28H29.2l17.801,13.693C47.587,41.344,48,40.732,48,40v-0.062L32.48,28z'/%3E%3Cpath fill='%23D10D24' d='M15.52,28L0,39.938V40c0,0.732,0.413,1.344,0.999,1.693L18.8,28H15.52z'/%3E%3Cpath fill='%23D10D24' d='M15.52,20h3.28L0.999,6.307C0.413,6.656,0,7.268,0,8v0.062L15.52,20z'/%3E%3C/svg%3E");
+        }
+
+        .language-picker__flag--francais::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%2301209F' d='M16,42H2c-1.105,0-2-0.895-2-2V8c0-1.105,0.895-2,2-2h14V42z'/%3E%3Cpath fill='%23EF4234' d='M48,40c0,1.105-0.895,2-2,2H32V6h14c1.105,0,2,0.895,2,2V40z'/%3E%3Crect x='16' y='6' fill='%23E6E6E6' width='16' height='36'/%3E%3C/svg%3E");
         }
     </style>
 
 
-    <div class="language-picker js-language-picker" data-trigger-class="li4-btn li4-btn--subtle js-tab-focus">
-        <form action="" class="language-picker__form">
-            <label for="language-picker-select">Select your language</label>
 
-            <select name="language-picker-select" id="language-picker-select">
-                <option lang="en" value="english" selected>English</option>
-                <option lang="fr" value="francais">Français</option>
-            </select>
-        </form>
-    </div>
 
 
 </head>
 
 <body>
     <div class="container">
+        <div class="language-picker js-language-picker" data-trigger-class="li4-btn li4-btn--subtle js-tab-focus">
+            <form action="" class="language-picker__form">
+
+                <select name="language-picker-select" id="language-picker-select" onchange="switchLanguage()">
+                    <option lang="en" value="english" selected>English</option>
+                    <option lang="fr" value="francais">Français</option>
+                </select>
+            </form>
+        </div>
         <h1 id="name">Rim Amarat</h1>
         <p id="contact">
             (+33) 07 77 75 05 01 ⋄ Avignon, France<br>
@@ -132,15 +156,15 @@
     </div>
 
     <script>
-        function switchLanguage(isEnglish) {
-            //const isEnglish = document.getElementById('name').innerText === 'Rim Amarat';
+        function switchLanguage() {
+            const isFrench = document.getElementById('name').innerText === 'Rim Amarat';
 
-            if (isEnglish) {
+            if (document.getElementById('language-picker-select').value == 'francais') {
                 document.getElementById('name').innerText = 'Rim Amarat';
                 document.getElementById('contact').innerHTML = '(+33) 07 77 75 05 01 ⋄ Avignon, France<br><a href="mailto:amaratrim@gmail.com">amaratrim@gmail.com</a><br><a href="https://www.linkedin.com/in/rimamarat" target="_blank">LinkedIn</a> ⋄ <a href="https://github.com/RimAmarat" target="_blank">GitHub</a>';
                 document.getElementById('education-title').innerText = 'Formation';
                 document.getElementById('education').innerHTML = `
-                    <li>M2 Intelligence artificielle CMI en alternance, Avignon Université (2022 - 2024)</li>
+                    <li>Master Intelligence artificielle CMI en alternance, Avignon Université (2022 - 2024)</li>
                     <li>DU Entrepreneuriat, Avignon Université (2020 - 2022)</li>
                     <li>Licence informatique CMI, Avignon Université (2019 - 2022)</li>
                     <li>L1 Math-Informatique, Université Mohammed Premier Oujda (2018 - 2019)</li>
@@ -240,7 +264,6 @@
                 document.querySelector('.button').innerText = 'Switch to French';
             }
         }
-        switchLanguage(document.querySelector('language-picker-select').value() == 'english')
 
     </script>
 </body>
